@@ -2,7 +2,7 @@ library(units)
 context("Pretty numbers")
 
 test_that("numbers.R is standalone", {
-  stenv <- environment(format_num$pretty_num)
+  stenv <- environment(pretty_num)
   objs <- ls(stenv, all.names = TRUE)
   funs <- Filter(function(x) is.function(stenv[[x]]), objs)
   funobjs <- mget(funs, stenv)

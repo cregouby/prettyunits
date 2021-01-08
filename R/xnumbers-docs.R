@@ -27,11 +27,31 @@
 #' pretty_num(numbers, style = "6")
 #' pretty_num(numbers, sep = "\xC2\xA0")
 
-pretty_num <- format_num$pretty_num
+pretty_num <- function(number, style = c("default", "nopad", "6"), sep = " ") {
+  
+  style <- switch(
+    match.arg(style),
+    "default" = pretty_num_default,
+    "nopad" = pretty_num_nopad,
+    "6" = pretty_num_6
+  )
+  stopifnot(!is.na(sep))
+  style(number, sep)
+}
 
 #' @rdname pretty_num
 #' @param smallest_prefix A character scalar, the smallest prefix to use,
 #'    within `c("y","z","a","f","p","n","\xC2\xB5","m","", "k", "M", "G", "T", "P", "E", "Z", "Y")`
 #' @export
 
-compute_num <- format_num$compute_num
+compute_num <- function(number, smallest_prefix = "y") {
+  prefixes0 <- c("y","z","a","f","p","n","\xC2\xB5","m","", "k", "M", "G", "T", "P", "E", "Z", "Y")
+  stopifnot(
+    is.numeric(number),
+    is.character(smallest_prefix),
+    length(smallest_prefix) == 1,
+    !is.na(smallest_prefix),
+    smallest_prefix %in% prefixes0
+  )
+  UseMethod("compute_num")
+}
