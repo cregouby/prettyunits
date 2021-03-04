@@ -125,7 +125,7 @@
     szs <- compute_num(number)
     amt <- szs$amount
     
-    ## String creation. Tests on amt shall be compliant with units::
+    ## String creation. 
     res <- character(length(amt))
     int <- is.na(amt) | abs(as.numeric(amt) - as.numeric(round(amt))) < 1e-7
     res[int] <- format(
